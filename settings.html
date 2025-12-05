@@ -1,0 +1,30 @@
+<form onsubmit="handleProfile(event)">
+  <input name="name" placeholder="Full name" />
+  <input name="email" placeholder="Email" />
+  <input name="phone" placeholder="Phone" />
+  <input name="password" placeholder="New password" />
+  <button type="submit">Save</button>
+</form>
+
+<script src="api.js"></script>
+<script>
+  async function renderProfile(){
+    const res = await EV_API.apiFetch('/me');
+    if(res && res.user){
+      const f = document.querySelector('form');
+      f.name.value = res.user.name || '';
+      f.email.value = res.user.email || '';
+      f.phone.value = res.user.phone || '';
+    }
+  }
+  async function handleProfile(e){
+    e.preventDefault();
+    const f = e.target;
+    const payload = { name: f.name.value.trim(), email: f.email.value.trim(), phone: f.phone.value.trim() };
+    if(f.password.value.trim()) payload.password = f.password.value.trim();
+    const res = await EV_API.apiFetch('/profile', payload);
+    if(!res.ok){ alert(res.error); return; }
+    alert('Profile updated');
+  }
+  renderProfile();
+</script>

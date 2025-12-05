@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Fund Wallet - Eric Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>body{margin:0;font-family:'Poppins';background:#f4f7fb;color:#1a1f36}.header{background:linear-gradient(135deg,#00C08B,#00A074);padding:18px;color:white;text-align:center}.container{max-width:420px;margin:28px auto;padding:18px;background:#fff;border-radius:12px}.input{width:100%;padding:12px;margin-top:10px;border-radius:10px;border:1px solid #e6eef5}</style>
+</head>
+<body>
+<div class="header">Fund Wallet</div>
+<div class="container">
+ <input id="amount" class="input" placeholder="Amount (₦)" type="number">
+ <button id="fund" style="width:100%;padding:12px;border-radius:10px;background:#00C08B;border:0;color:white;margin-top:12px">Add Funds</button>
+ <a href="dashboard.html" style="display:block;text-align:center;margin-top:12px">← Back</a>
+</div>
+
+<script src="backend.js"></script>
+<script>
+if(!window.EV.getCurrentUser()){ alert('Please login'); location.href='login.html' }
+document.getElementById('fund').addEventListener('click', ()=>{
+  const amount = Number(document.getElementById('amount').value);
+  if(!amount || amount<=0) return alert('Enter valid amount');
+  const res = window.EV.addTransaction({ type:'Fund', details:{method:'Manual'}, amount });
+  if(!res.ok) return alert(res.error||'Failed');
+  alert('Wallet funded: ₦' + amount);
+  location.href='dashboard.html';
+});
+</script>
+</body>
+</html>

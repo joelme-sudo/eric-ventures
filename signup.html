@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign up - Eric Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+ :root{--bg:#0b1220;--panel:#0f1726;--accent:#00c08b}
+ body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:white}
+ .wrap{max-width:460px;margin:60px auto;padding:22px;background:var(--panel);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+ h2{color:var(--accent);margin-bottom:10px}
+ input{width:100%;padding:12px;border-radius:10px;border:0;background:#0b1226;color:white;margin:10px 0}
+ button{width:100%;padding:12px;border-radius:10px;border:0;background:var(--accent);color:#001;font-weight:700}
+ .muted{text-align:center;color:#9aa6b2;margin-top:12px}
+ a{color:var(--accent)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>Create account</h2>
+    <input id="name" placeholder="Full name">
+    <input id="email" placeholder="Email">
+    <input id="phone" placeholder="Phone (optional)">
+    <input id="password" placeholder="Password" type="password">
+    <button id="signupBtn">Create account</button>
+    <div class="muted">Already have an account? <a href="login.html">Login</a></div>
+  </div>
+
+<script src="backend.js"></script>
+<script>
+document.getElementById('signupBtn').addEventListener('click', ()=>{
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const password = document.getElementById('password').value;
+  if(!name || !email || !password) return alert('Fill required fields');
+  const res = window.EV.createUser(name, email, password, phone);
+  if(!res.ok) return alert(res.error || 'Could not create account');
+  location.href = 'dashboard.html';
+});
+</script>
+</body>
+</html>

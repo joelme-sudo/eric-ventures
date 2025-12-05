@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Buy Airtime - Eric Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:'Poppins';background:#f4f7fb;color:#1a1f36}
+.header{background:linear-gradient(135deg,#00C08B,#00A074);padding:18px;color:white;text-align:center}
+.container{max-width:520px;margin:26px auto;padding:18px;background:#fff;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,0.06)}
+input,select{width:100%;padding:12px;border-radius:10px;border:1px solid #e6eef5;margin-top:12px}
+button{width:100%;padding:12px;border-radius:10px;border:0;background:#00C08B;color:white;font-weight:700;margin-top:14px}
+a{display:block;text-align:center;margin-top:12px}
+</style>
+</head>
+<body>
+ <div class="header">Buy Airtime</div>
+ <div class="container">
+   <select id="network"><option value="">Select network</option><option>MTN</option><option>Airtel</option><option>Glo</option><option>9mobile</option></select>
+   <input id="phone" placeholder="Phone number">
+   <input id="amount" placeholder="Amount (₦)" type="number">
+   <button id="pay">Pay</button>
+   <a href="dashboard.html">← Back</a>
+ </div>
+
+<script src="backend.js"></script>
+<script>
+const u = window.EV.getCurrentUser();
+if(!u){ alert('Please login'); location.href='login.html' }
+
+document.getElementById('pay').addEventListener('click', async ()=>{
+  const network = document.getElementById('network').value;
+  const phone = document.getElementById('phone').value.trim();
+  const amount = Number(document.getElementById('amount').value);
+  if(!network || !phone || !amount) return alert('Complete the form');
+  const res = window.EV.addTransaction({ type:'Airtime', details:{network,phone}, amount });
+  if(!res.ok) return alert(res.error || 'Payment failed');
+  alert('Airtime purchased');
+  location.href='dashboard.html';
+});
+</script>
+</body>
+</html>

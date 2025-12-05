@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Login - Eric Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+ :root{--bg:#0b1220;--panel:#0f1726;--accent:#00c08b}
+ body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:white}
+ .wrap{max-width:420px;margin:80px auto;padding:22px;background:var(--panel);border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
+ h2{color:var(--accent);margin-bottom:10px}
+ input{width:100%;padding:12px;border-radius:10px;border:0;background:#0b1226;color:white;margin:10px 0}
+ button{width:100%;padding:12px;border-radius:10px;border:0;background:var(--accent);color:#001;font-weight:700}
+ .muted{text-align:center;color:#9aa6b2;margin-top:12px}
+ a{color:var(--accent)}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <h2>Welcome back</h2>
+    <input id="email" placeholder="Email or phone">
+    <input id="password" placeholder="Password" type="password">
+    <button id="loginBtn">Login</button>
+    <div class="muted">Don't have account? <a href="signup.html">Create one</a></div>
+  </div>
+
+<script src="backend.js"></script>
+<script>
+document.getElementById('loginBtn').addEventListener('click', ()=>{
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  if(!email || !password) return alert('Fill all fields');
+  const res = window.EV.login(email, password);
+  if(!res.ok) return alert(res.error || 'Login failed');
+  location.href = 'dashboard.html';
+});
+</script>
+</body>
+</html>

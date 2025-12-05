@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dashboard - Eric Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+ :root{--green:#00C08B;--panel:#fff;--bg:#F4F7FA;--card-bg:#fff;--muted:#6b7280}
+ .dark{--bg:#0C111B;--panel:#111827;--muted:#9CA3AF;--card-bg:rgba(31,41,55,0.55)}
+ body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--muted)}
+ .nav{background:linear-gradient(135deg,#00C08B,#00A074);padding:18px;color:#fff;display:flex;justify-content:space-between;align-items:center}
+ .brand{font-weight:700}
+ .profile{max-width:1100px;margin:18px auto;background:linear-gradient(90deg,#00A074,#00C08B);padding:26px;border-radius:18px;color:#fff;box-shadow:0 10px 30px rgba(0,0,0,0.12)}
+ .grid{max-width:1100px;margin:20px auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:18px;padding:18px}
+ .card{background:var(--card-bg);padding:20px;border-radius:14px;text-align:center;box-shadow:0 8px 22px rgba(0,0,0,0.06);transition:0.18s}
+ .card:hover{transform:translateY(-6px)}
+ .card img{width:46px;margin-bottom:10px}
+ .logout{color:#ff4d4f;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+ <nav class="nav"><div class="brand">ERIC VENTURES</div><div><a href="index.html" style="color:#e6fff0">Home</a></div></nav>
+
+ <section class="profile" id="profileSection">Loading...</section>
+ <section class="grid">
+  <a herf="transfer.html"><div class="card"><img src="https://cdn-icons-png.flaticon.com/512/1048/1048953.png"><div>Transfer</div></div></a>
+   <a href="airtime.html"><div class="card"><img src="https://cdn-icons-png.flaticon.com/512/1048/1048953.png"><div>Buy Airtime</div></div></a>
+   <a href="data.html"><div class="card"><img src="https://cdn-icons-png.flaticon.com/512/1104/1104763.png"><div>Buy Data</div></div></a>
+   <a href="bills.html"><div class="card"><img src="https://cdn-icons-png.flaticon.com/512/1077/1077976.png"><div>Pay Bills</div></div></a>
+   <a href="cable.html"><div class="card"><img src="https://cdn-icons-png.flaticon.com/512/1688/1688408.png"><div>Cable TV</div></div></a>
+   <a href="history.html"><div class="card"><img src="https://cdn-icons-png.flaticon.com/512/1828/1828961.png"><div>History</div></div></a>
+   <a href="fund.html"><div class="card"><img src="https://cdn-icons-png.flaticon.com/512/992/992651.png"><div>Fund Wallet</div></div></a>
+   <a href="profile.html"><div class="card"><img src="https://cdn-icons-png.flaticon.com/512/552/552188.png"><div>Profile</div></div></a>
+   <div id="logoutBtn" class="card logout"><img src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png" style="width:34px;margin-bottom:8px"><div>Logout</div></div>
+ </section>
+
+<script src="backend.js"></script>
+<script>
+ // restore theme
+ if(localStorage.getItem('ev_theme')==='dark') document.body.classList.add('dark');
+
+ const user = window.EV.getCurrentUser();
+ if(!user){ alert('Please login'); location.href='login.html'; }
+ else {
+   document.getElementById('profileSection').innerHTML = `
+     <div style="display:flex;justify-content:space-between;align-items:center;gap:12px">
+       <div>
+         <h2 style="margin:0">${user.name}</h2>
+         <div style="color:var(--muted)">${user.email}</div>
+       </div>
+       <div style="text-align:right">
+         <div style="font-size:14px;color:rgba(255,255,255,0.9)">Wallet Balance</div>
+         <div style="font-size:24px;font-weight:700">₦${user.balance}</div>
+       </div>
+     </div>
+   `;
+ }
+
+ document.getElementById('logoutBtn').addEventListener('click',()=>{
+   window.EV.logout();
+   location.href='login.html';
+});
+</script>
+</body>
+</html>

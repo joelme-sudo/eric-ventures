@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Profile - Eric Ventures</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"><style>body{margin:0;font-family:'Poppins';background:#f4f7fb;color:#1a1f36}.header{background:linear-gradient(135deg,#00C08B,#00A074);padding:18px;color:white;text-align:center}.container{max-width:520px;margin:26px auto;padding:18px;background:#fff;border-radius:12px}input{width:100%;padding:12px;margin-top:10px;border-radius:10px;border:1px solid #eef3f6}</style></head>
+<body>
+<div class="header">Profile</div>
+<div class="container">
+  <input id="name" placeholder="Full name">
+  <input id="email" placeholder="Email">
+  <input id="phone" placeholder="Phone">
+  <input id="password" placeholder="New password" type="password">
+  <button id="save" style="width:100%;padding:12px;border-radius:10px;background:#00C08B;border:0;color:white;margin-top:12px">Save</button>
+  <a href="dashboard.html" style="display:block;text-align:center;margin-top:12px">← Back</a>
+</div>
+
+<script src="backend.js"></script>
+<script>
+const user = window.EV.getCurrentUser();
+if(!user){ alert('Please login'); location.href='login.html' }
+document.getElementById('name').value = user.name || '';
+document.getElementById('email').value = user.email || '';
+document.getElementById('phone').value = user.phone || '';
+
+document.getElementById('save').addEventListener('click', ()=>{
+  const name = document.getElementById('name').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const password = document.getElementById('password').value;
+  const res = window.EV.updateProfile({ name, email, phone, password: password || undefined });
+  if(!res.ok) return alert(res.error || 'Failed');
+  alert('Profile updated');
+  location.href='dashboard.html';
+});
+</script>
+</body>
+</html>

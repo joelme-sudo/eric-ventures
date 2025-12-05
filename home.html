@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sign Up - Eric Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+  body{
+    margin:0;
+    background:#0a0f1f;
+    font-family:'Poppins';
+    color:white;
+  }
+  .container{
+    max-width:400px;
+    margin:50px auto;
+    background:#0f1726;
+    padding:25px;
+    border-radius:12px;
+  }
+  h2{
+    text-align:center;
+    color:#3ab4ff;
+  }
+  input{
+    width:100%;
+    padding:12px;
+    border:0;
+    margin:10px 0;
+    border-radius:10px;
+    background:#11172b;
+    color:white;
+  }
+  button{
+    width:100%;
+    padding:12px;
+    border:0;
+    border-radius:10px;
+    background:#3ab4ff;
+    color:black;
+    font-weight:700;
+  }
+  a{ color:#3ab4ff; text-decoration:none; }
+</style>
+</head>
+
+<body>
+<div class="container">
+  <h2>Create Account</h2>
+
+  <input id="name" placeholder="Full Name">
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+
+  <button id="signupBtn">Sign Up</button>
+
+  <p style="text-align:center;margin-top:10px">
+    Already have an account? <a href="login.html">Login</a>
+  </p>
+</div>
+
+<script src="backend.js"></script>
+<script>
+  document.getElementById('signupBtn').onclick = ()=>{
+    let n=document.getElementById('name').value.trim();
+    let e=document.getElementById('email').value.trim();
+    let p=document.getElementById('password').value.trim();
+
+    if(!n || !e || !p) return alert("All fields required");
+
+    if(window.EV.createUser(n,e,p)){
+      alert("Account created!");
+      window.location.href="dashboard.html";
+    } else {
+      alert("Email already exists!");
+    }
+  };
+</script>
+</body>
+</html>

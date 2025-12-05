@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Success - Eric Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0f1f;--card:#11172b;--muted:#9aa6b2;--accent:#3ab4ff}
+  body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--muted)}
+  .wrap{min-height:80vh;display:flex;justify-content:center;align-items:center;padding:18px}
+  .card{background:var(--card);padding:30px;border-radius:12px;text-align:center}
+  .btn{display:inline-block;margin-top:14px;padding:12px 18px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#267ac6);color:#001;font-weight:700}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" id="successCard">
+      <h2 style="color: #8be28b">Success!</h2>
+      <p id="successText">Your transaction was successful.</p>
+      <a class="btn" href="dashboard.html">Back to Dashboard</a>
+    </div>
+  </div>
+
+<script src="backend.js"></script>
+<script>
+  // display last tx
+  const lastId = localStorage.getItem('ev_last_tx');
+  if(!lastId){ document.getElementById('successText').innerText = 'No recent transaction found.'; }
+  else {
+    const res = EV.getHistory();
+    if(res.success){
+      const tx = res.txs.find(t => t.id === lastId);
+      if(tx){
+        document.getElementById('successText').innerHTML = `<strong>${tx.type}</strong> — ₦${tx.amount} <br><small style="color:var(--muted)">${new Date(tx.date).toLocaleString()}</small>`;
+      } else {
+        document.getElementById('successText').innerText = 'Transaction recorded.';
+      }
+    }
+  }
+</script>
+</body>
+</html>

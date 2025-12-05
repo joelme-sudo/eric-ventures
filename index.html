@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Eric Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0b1220;--accent:#00c08b;--muted:#9aa6b2;}
+  body{margin:0;font-family:'Poppins',sans-serif;background:linear-gradient(180deg,#071026 0%, #071829 60%);color:white}
+  .nav{display:flex;justify-content:space-between;align-items:center;padding:18px 28px}
+  .brand{font-weight:700;color:var(--accent);font-size:20px}
+  .cta{display:flex;gap:12px}
+  .btn{background:var(--accent);color:#001;padding:10px 16px;border-radius:12px;text-decoration:none;font-weight:700}
+  .hero{display:flex;align-items:center;gap:36px;padding:60px 28px;max-width:1100px;margin:0 auto}
+  .hero-left h1{font-size:34px;margin-bottom:12px}
+  .hero-left p{color:#b7c6d5;max-width:520px}
+  .hero-right img{width:360px;border-radius:14px;box-shadow:0 12px 40px rgba(0,192,139,0.12)}
+  .features{display:flex;justify-content:center;gap:18px;margin-top:30px;flex-wrap:wrap}
+  .feature{background:rgba(255,255,255,0.03);padding:16px;border-radius:12px;min-width:200px;text-align:center}
+  footer{padding:18px;text-align:center;color:#94a3b8;margin-top:40px}
+  a{text-decoration:none;color:inherit}
+  @media(max-width:900px){ .hero{flex-direction:column;text-align:center} .hero-right img{width:260px} }
+</style>
+</head>
+<body>
+  <header class="nav">
+    <div class="brand">ERIC VENTURES</div>
+    <div class="cta">
+      <a class="btn" href="login.html">Login</a>
+      <a class="btn" href="signup.html">Create account</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-left">
+        <h1>Fast. Secure. Everywhere.</h1>
+        <p>Buy airtime, data, and pay your bills in seconds. A premium payment experience inspired by the best fintech apps.</p>
+        <div style="margin-top:18px"><a class="btn" href="signup.html">Get started</a></div>
+      </div>
+      </div>
+    </section>
+
+    <section class="features" style="max-width:1100px;margin:20px auto">
+      <div class="feature"><strong>Instant Airtime</strong><div style="color:#b7c6d5">Top up in seconds</div></div>
+      <div class="feature"><strong>Data Plans</strong><div style="color:#b7c6d5">Affordable bundles</div></div>
+      <div class="feature"><strong>Bills</strong><div style="color:#b7c6d5">Fast & secure payments</div></div>
+    </section>
+  </main>
+
+  <footer>© 2025 Eric Ventures —</footer>
+</body>
+</html>

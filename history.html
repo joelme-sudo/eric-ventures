@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>History - Eric Ventures</title><link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet"><style>body{margin:0;font-family:'Poppins';background:#f4f7fb;color:#1a1f36}.header{background:linear-gradient(135deg,#00C08B,#00A074);padding:18px;color:white;text-align:center}.container{max-width:900px;margin:26px auto;padding:18px;background:#fff;border-radius:12px}.tx{display:flex;justify-content:space-between;padding:12px;border-bottom:1px solid #eef3f6}</style></head>
+<body>
+<div class="header">Transactions</div>
+<div class="container" id="list">Loading...</div>
+<a href="dashboard.html" style="display:block;text-align:center;margin-top:12px">← Back</a>
+
+<script src="backend.js"></script>
+<script>
+if(!window.EV.getCurrentUser()){ alert('Please login'); location.href='login.html' }
+const out = document.getElementById('list');
+const res = window.EV.getHistory();
+if(!res.ok){ out.innerText = res.error || 'No history'; }
+else {
+  const txs = res.txs;
+  if(!txs.length) out.innerHTML = '<div style="text-align:center;color:#6b7280">No transactions yet</div>';
+  else {
+    out.innerHTML = txs.map(t=>`
+      <div class="tx"><div><strong>${t.type}</strong><div style="color:#6b7280">${JSON.stringify(t.details)}</div></div><div>₦${t.amount}<div style="color:#6b7280;font-size:12px">${new Date(t.date).toLocaleString()}</div></div></div>
+    `).join('');
+  }
+}
+</script>
+</body>
+</html>

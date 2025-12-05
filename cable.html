@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Cable TV - Eric Ventures</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+ :root{--bg:#0a0f1f;--card:#11172b;--muted:#9aa6b2;--accent:#b084ff}
+ .light{--bg:#f6f9fc;--muted:#6b7280}
+ body{margin:0;font-family:'Poppins',sans-serif;background:var(--bg);color:var(--muted)}
+ .nav{padding:12px 20px;background:#0f1726;display:flex;justify-content:space-between}
+ .panel{max-width:720px;margin:28px auto;padding:18px;background:var(--card);border-radius:12px}
+ input, select{width:100%;padding:12px;border-radius:8px;border:none;background:#0b1220;color:#fff;margin-bottom:10px}
+ button{width:100%;padding:12px;background:linear-gradient(90deg,var(--accent),#7b4fe0);border:none;border-radius:10px;color:#001;font-weight:700}
+</style>
+</head>
+<body>
+  <nav class="nav"><div style="color:var(--accent);font-weight:700">ERIC VENTURES</div><div><a href="dashboard.html" style="color:var(--muted)">Back</a></div></nav>
+
+  <main class="panel">
+    <h2 style="color:var(--accent)">Cable TV</h2>
+    <form id="cableForm">
+      <select name="provider" required><option value="">Select Provider</option><option>DSTV</option><option>GOtv</option><option>StarTimes</option></select>
+      <input name="smartcard" placeholder="Smartcard / IUC number" required />
+      <input name="amount" placeholder="Amount (₦)" required />
+      <button type="submit">Subscribe</button>
+    </form>
+  </main>
+
+<script src="backend.js"></script>
+<script>
+  if(!EV.getCurrentUser()){ alert('Please login'); window.location='login.html'; }
+  document.getElementById('cableForm').addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const f = e.target;
+    const provider = f.provider.value; const smartcard = f.smartcard.value.trim(); const amount = Number(f.amount.value);
+    if(!provider||!smartcard||!amount){ alert('Complete form'); return;}
+    const res = EV.addTransaction({ type:'Cable', details:{provider,smartcard}, amount });
+    if(!res.success){ alert(res.message||'Failed'); return; }
+    localStorage.setItem('ev_last_tx', res.tx.id);
+    window.location='success.html';
+  });
+</script>
+</body>
+</html>
